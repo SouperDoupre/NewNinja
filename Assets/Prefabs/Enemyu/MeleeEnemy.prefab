@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2237663890534440315}
   m_Layer: 9
   m_Name: MeleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &498507087323782229
 SpriteRenderer:
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 2
-  dmg: -1
+  dmg: 1
   range: 2.27
   colliderDistance: 0.42
   boxCollider: {fileID: 498507087323782219}
@@ -184,4 +184,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87de360721feb1d4fa9d8a0757ad5ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: -1
+  dmg: 1

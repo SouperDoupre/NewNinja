@@ -33,7 +33,7 @@ public class Projectiles : MonoBehaviour
         anim.SetTrigger("explode");//starts the explode animation
 
         if (collision.tag == "Enemy")
-            collision.GetComponent<Health>().UpdateHealth(-1);
+            collision.GetComponent<Health>().TakeDamage(1);
     }
     public void SetDirection(float _direction)
     {

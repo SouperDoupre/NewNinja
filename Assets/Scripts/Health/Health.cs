@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -19,38 +20,28 @@ public class Health : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Behaviour[] components;
 
-    public delegate void HealthChange(float amnt);//creates a standard a set a rules that will return how much damage is done
-    public HealthChange healthChange;//creates an variable of the delegate HealthChange
  
     private void Awake()
     {
         currentHealth = startingHealth;//starts the game with current health at maximum
         anim = GetComponent<Animator>();//attaches the Animator to the variable anim
         sRend = GetComponent<SpriteRenderer>();//attaches the Sprite Renderer to the variable sRend
-        healthChange = UpdateHealth;//assignes the variable damage to UpdateHealth so that the function will be recognized by healthChange whenever it is called anywhere else
     }
-    public void UpdateHealth(float amnt)
+    public void TakeDamage(float _damage)
     {
         if (invulnerable) return;
-       currentHealth = Mathf.Clamp(currentHealth + amnt, 0, startingHealth);//applies damage or healing using amnt without putting the current health below 0
+       currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);//applies damage or healing using _damage without putting the current health below 0
 
        if(currentHealth > 0)
        {
-            if(amnt > -1)
-            {
-                return;
-            }
-            else
-            {
-                anim.SetTrigger("hurt");//if the current health is above 0 and damage is taken the start the "hurt" animation
-                StartCoroutine(Invulnerability());//Starts the coroutine Invulnerability that will flash the player red and make them immune to damage for period of time
-            }
-
+            anim.SetTrigger("hurt");
+            StartCoroutine(Invulnerability());
        }
        else
        {
             if (!dead)
             {
+                anim.SetBool("grounded", true);
                 anim.SetTrigger("die");//if the target is not dead and health is below 0 then start the "die" animation
                 //deactivates all components
                 foreach(Behaviour component in components)
@@ -60,6 +51,10 @@ public class Health : MonoBehaviour
                 dead = true;//sets the bool dead to true
             }
        }
+    }
+    public void AddHealth(float health)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + health, 0, startingHealth);
     }
     private IEnumerator Invulnerability()
     {

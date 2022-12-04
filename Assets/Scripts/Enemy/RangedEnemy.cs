@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
 {
+    [Header("Health")]
+    [SerializeField] private float startingHealth;//Stores the health variable
+    public float currentHealth { get; private set; }//makes it so that it can be used in any script but can only be changed in this script
+    private bool dead;//checks if the player is dead
+
     [Header("Attack Parameters")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private int dmg;

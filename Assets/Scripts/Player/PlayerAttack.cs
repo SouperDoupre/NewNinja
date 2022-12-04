@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,23 +12,31 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMove playerMove;//a variable that will hold the Playeramove component
     private float coolDownTimer = Mathf.Infinity;//a variable that tracks how long it has been for the cooldown, set at infinity
 
+    private Action attacking;//Delegate 
+
+
     private void Awake()
     {
         anim = GetComponent<Animator>();//assigns this objects's Animator to the variable anim
         playerMove = GetComponent<PlayerMove>();//assigns the PlayerMove component to the variable playerMove
+        attacking = AttackWithFireball;
     }
     private void Update()
     {
         if (Input.GetMouseButton(0) && coolDownTimer > attackCool && playerMove.CanAttack())//when the player presses the assigned key
                                                                                             //and the cooldownTimer is greater that the attack cooldown and the player can attack then attack
-            Attack();//calls the attack function when the conditions are met
+            attacking();//calls the attack function when the conditions are met
 
         coolDownTimer += Time.deltaTime;//increases the coolDownTimer frame independantly
+        if(Input.GetKeyDown(KeyCode.M))
+            SetUseSword();
+        if (Input.GetKeyDown(KeyCode.N))
+            SetUseFB();
     }
 
-    private void Attack()
+    private void AttackWithFireball()
     {
-        anim.SetTrigger("attack");//starts the attack animation
+        anim.SetTrigger("attackFB");//starts the attack animation
         coolDownTimer = 0;//sets the cooldownTimer to 0
         //Object pooling the arrows
         fireballs[FindFireball()].transform.position = firePoint.position;//creates the first fireball in the array at the firepoint transform position
@@ -41,5 +50,20 @@ public class PlayerAttack : MonoBehaviour
                 return i;
         }
         return 0;
+    }
+    private void SetUseFB()
+    {
+        anim.SetBool("hasSW", false);
+        attacking = AttackWithFireball;
+    }
+    private void SetUseSword()
+    {
+        anim.SetBool("hasSW", true);
+        attacking = AttackWithSword;
+    }
+    private void AttackWithSword()
+    {
+        anim.SetTrigger("attackSW");
+        coolDownTimer = 0;//sets the cooldownTimer to 0
     }
 }

@@ -15,11 +15,11 @@ public class MeleeEnemy : MonoBehaviour
 
     [Header("Player Layer")]
     [SerializeField] private LayerMask playerLayer;
-    
-    
+
+    private Health playerHealth;
+
     private float coolDownTimer = Mathf.Infinity;//gives the enemy the abilty top attack immidiately
     private Animator anim;
-    private Health playerHealth;
     private EnemyPatrol enemyPatrol;
     private void Awake()
     {
@@ -61,7 +61,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         if (PlayerinSight())
         {
-            playerHealth.UpdateHealth(dmg);
+            playerHealth.TakeDamage(dmg);
         }
     }
 }

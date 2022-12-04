@@ -46,7 +46,7 @@ public class SawSideways : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            collision.GetComponent<Health>().healthChange(damage);//if something with the "Player" tag touches the saw then call the HealthChange function
+            collision.GetComponent<Health>().TakeDamage(damage);//if something with the "Player" tag touches the saw then call the HealthChange function
                                                                 //using the damage that is assigned to the saw
         }
     }

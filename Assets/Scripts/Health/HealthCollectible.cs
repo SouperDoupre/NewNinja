@@ -10,7 +10,7 @@ public class HealthCollectible : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            collision.GetComponent<Health>().UpdateHealth(hValue);//if the healthpack touches something assigned the tag "Player" then call the UpdateHeath function in the players health component
+            collision.GetComponent<Health>().TakeDamage(hValue);//if the healthpack touches something assigned the tag "Player" then call the UpdateHeath function in the players health component
             gameObject.SetActive(false);//this will make the healthpack disappear so it isnt able to heal again
         }
     }
