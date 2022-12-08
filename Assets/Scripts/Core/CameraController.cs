@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     private float currentPosX;
     private Vector3 velocity = Vector3.zero;
 
+
     //Follow player
     //[SerializeField] private Transform player;
     //[SerializeField] private float aheadDistance;//how far ahead the camera will look
